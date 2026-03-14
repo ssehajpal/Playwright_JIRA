@@ -2,22 +2,26 @@ import { test, expect } from '@playwright/test';
 import { createProduct } from '../api/productAPI';
 import { generateProductData } from '../utils/dataGenerator';
 import { ProductsPage } from '../pages/productsPage';
+import { Logger } from '../utils/logger';
 
 test('Create product via API & verify on UI', async ({ page, request }) => {
-  //Generate Product Data
+    Logger.info("Generating product data");
     const { productName, productPrice } = generateProductData();
 
-  //Create Product using POST API  
-  const response = await createProduct(request, productName, productPrice);
-  expect(response.status()).toBe(201);
+    Logger.info(`Generated product name: ${productName}`);
+    Logger.info(`Generated product price: ${productPrice}`);
 
-  //Initialise Page Object
-  const productsPage = new ProductsPage(page);
+    Logger.info("API product creation request sent");
+    const response = await createProduct(request, productName, productPrice);
+    expect(response.status()).toBe(201);
 
-  //Open Page & Verify Data
-  await productsPage.open();
-  await page.reload();
-  await productsPage.verifyProduct(productName, productPrice);
+    //Initialise Page Object
+    const productsPage = new ProductsPage(page);
+
+    //Open Page & Verify Data
+    await productsPage.open();
+    await page.reload();
+    await productsPage.verifyProduct(productName, productPrice);
 
 });
 
