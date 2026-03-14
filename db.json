@@ -41,6 +41,11 @@
       "id": "e62e",
       "title": "Playwright_Product_1773479509105",
       "price": 384
+    },
+    {
+      "id": "d0a6",
+      "title": "Playwright_Product_1773480372877",
+      "price": 564
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
