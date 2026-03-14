@@ -32,6 +32,7 @@ jobs:
         run: |
               npx json-server db.json --port 3000 &
               wait-on http://localhost:3000/products
-
+      - name: Verify server
+        run: curl http://localhost:3000/products
       - name: Run Playwright tests
         run: npx playwright test  

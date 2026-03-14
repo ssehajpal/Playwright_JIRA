@@ -61,6 +61,11 @@
       "id": "aa34",
       "title": "Playwright_Product_1773482463370",
       "price": 241
+    },
+    {
+      "id": "faa2",
+      "title": "Playwright_Product_1773507300715",
+      "price": 742
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
