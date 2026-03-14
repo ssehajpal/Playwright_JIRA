@@ -28,8 +28,19 @@ jobs:
       - name: Install wait-on
         run: npm install -g wait-on
 
+      - name: Debug environment
+        run: |
+          echo "--- Node version ---"
+          node --version
+          echo "--- json-server version ---"
+          npx json-server --version
+          echo "--- db.json contents ---"
+          cat db.json
+          echo "--- Current directory ---"
+          pwd && ls -la
+
       - name: Start mock server
-        run: npx json-server db.json --port 3000  --host 0.0.0.0 &
+        run: npx json-server db.json --port 3000  --host 0.0.0.0 > /tmp/json-server.log 2>&1 &
 
       - name: Wait for mock server to be ready
         run: |
@@ -44,3 +55,7 @@ jobs:
       
       - name: Run Playwright tests
         run: npx playwright test  
+
+      - name: Show server logs
+        if: always()
+        run: cat /tmp/json-server.log
