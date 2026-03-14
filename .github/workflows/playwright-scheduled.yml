@@ -25,10 +25,13 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Install wait-on
+        run: npm install -g wait-on
+
       - name: Start JSON mock server
         run: |
-          npx json-server db.json --port 3000 &
-          sleep 5
+              npx json-server db.json --port 3000 &
+              wait-on http://localhost:3000/products
 
       - name: Run Playwright tests
         run: npx playwright test  
