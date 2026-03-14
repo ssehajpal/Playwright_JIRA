@@ -1,0 +1,47 @@
+{
+  "products": [
+    {
+      "id": "dee3",
+      "title": "Playwright Test Product",
+      "price": 100,
+      "description": "This is a Playwright Test Product",
+      "category": "string"
+    },
+    {
+      "id": "ff19",
+      "title": "Playwright_Product_1773477523115",
+      "price": 853
+    },
+    {
+      "id": "5114",
+      "title": "Playwright_Product_1773478666872",
+      "price": 33
+    },
+    {
+      "id": "47d0",
+      "title": "Playwright_Product_1773478816933",
+      "price": 646
+    },
+    {
+      "id": "cbde",
+      "title": "Playwright_Product_1773478816959",
+      "price": 103
+    },
+    {
+      "id": "e311",
+      "title": "Playwright_Product_1773478820662",
+      "price": 794
+    },
+    {
+      "id": "8486",
+      "title": "Playwright_Product_1773479065691",
+      "price": 615
+    },
+    {
+      "id": "e62e",
+      "title": "Playwright_Product_1773479509105",
+      "price": 384
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
