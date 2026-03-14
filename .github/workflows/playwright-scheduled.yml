@@ -29,10 +29,10 @@ jobs:
         run: npm install -g wait-on
 
       - name: Start mock server
-        run: npx json-server db.json --port 3000 &
+        run: npx json-server db.json --port 3000  --host 0.0.0.0 &
 
       - name: Wait for mock server to be ready
-        run: npx wait-on http://localhost:3000/products
+        run: npx wait-on http://127.0.0.1:3000/products
       
       - name: Run Playwright tests
         run: npx playwright test  
