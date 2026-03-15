@@ -1,5 +1,14 @@
 # Playwright + Jira Automation Demo Framework
 
+![Playwright Tests](https://github.com/ssehajpal/Playwright_JIRA/actions/workflows/playwright.yml/badge.svg)
+
+# Playwright + Jira Automation Demo Framework
+
+## Overview
+
+This project demonstrates a **modern QA automation framework** built using **Playwright**.
+The framework validates data created via **API calls** and verifies it on the **UI**, while maintaining a **scalable project structure**.
+
 ## Overview
 
 This project demonstrates a **modern QA automation framework** built using **Playwright**.
