@@ -64,7 +64,7 @@ export default defineConfig({
   webServer: {
     command: 'npx json-server db.json --port 3000 --host 0.0.0.0',
     url: 'http://127.0.0.1:3000/products',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     stdout: 'pipe',
   stderr: 'pipe',
   },

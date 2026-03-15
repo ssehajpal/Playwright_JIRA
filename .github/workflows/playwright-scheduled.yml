@@ -39,6 +39,9 @@ jobs:
           echo "--- Current directory ---"
           pwd && ls -la
 
+      - name: Kill anything on port 3000
+        run: fuser -k 3000/tcp || true    
+
       - name: Start mock server
         run: npx json-server db.json --port 3000  --host 0.0.0.0 > /tmp/json-server.log 2>&1 &
 
