@@ -7,11 +7,6 @@
 This project demonstrates a **modern QA automation framework** built using **Playwright**.
 The framework validates data created via **API calls** and verifies it on the **UI**, while maintaining a **scalable project structure**.
 
-## Overview
-
-This project demonstrates a **modern QA automation framework** built using **Playwright**.
-The framework validates data created via **API calls** and verifies it on the **UI**, while maintaining a **scalable project structure**.
-
 ---
 
 # Architecture
