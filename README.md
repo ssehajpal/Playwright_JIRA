@@ -23,15 +23,13 @@ playwright-jira-automation
 │   └── productsPage.ts
 │
 ├── tests
-│   └── product.spec.ts
+│   └── products.spec.ts
 │
 ├── utils
 │   ├── dataGenerator.ts
 │   └── logger.ts
 │
-├── mock-data
-│   └── db.json
-│
+├── db.json
 ├── playwright.config.ts
 ├── package.json
 └── README.md
@@ -39,13 +37,13 @@ playwright-jira-automation
 
 ### Folder Responsibilities
 
-| Folder      | Description                                              |
-| ----------- | -------------------------------------------------------- |
-| `tests`     | Contains Playwright test cases                           |
-| `pages`     | Page Object Model (POM) classes for UI interactions      |
-| `api`       | API helper functions                                     |
-| `utils`     | Reusable utilities like test data generators and logging |
-| `mock-data` | Mock backend database used by JSON Server                |
+| Folder  | Description                                              |
+| ------- | -------------------------------------------------------- |
+| `tests` | Contains Playwright test cases                           |
+| `pages` | Page Object Model (POM) classes for UI interactions      |
+| `api`   | API helper functions                                     |
+| `utils` | Reusable utilities like test data generators and logging |
+| `db.json` | Mock backend database used by JSON Server              |
 
 ---
 
@@ -105,88 +103,97 @@ The project uses **JSON Server** as a mock backend to simulate API behavior.
 Mock API endpoint:
 
 ```
-http://localhost:3000/products
+http://127.0.0.1:3000/products
 ```
 
 This allows:
-
 * API testing
 * UI validation
-* persistent test data
+* Persistent test data
+
+> **Note:** JSON Server is managed automatically by Playwright's `webServer` configuration — no manual server startup is required before running tests.
+
+---
+
+### CI/CD with GitHub Actions
+
+The framework includes a **GitHub Actions pipeline** that runs on every push and pull request to `main`.
+
+The pipeline:
+* Installs dependencies via `npm ci`
+* Installs Playwright browsers
+* Starts the JSON Server mock backend automatically via `playwright.config.ts` `webServer` config
+* Runs all tests across configured browsers
+* Uploads the HTML test report as an artifact
 
 ---
 
 # Installation
 
 Clone the repository:
-
-```
-git clone <repository-url>
+```bash
+git clone 
 cd playwright-jira-automation
 ```
 
-Install dependencies:
-
+Initialize Playwright (installs dependencies, browsers, and config):
+```bash
+npm init playwright@latest
 ```
-npm install
-```
-
-Install Playwright browsers:
-
-```
-npx playwright install
-```
-
----
-
-# Running the Mock API Server
-
-Start the mock backend server:
-
-```
-npm run mock-server
-```
-
-Or directly:
-
-```
-json-server mock-data/db.json --port 3000
-```
-
-This exposes the API:
-
-```
-http://localhost:3000/products
-```
-
 ---
 
 # Running Tests
 
+Playwright automatically starts the mock backend before tests run (configured via `webServer` in `playwright.config.ts`). No manual server startup is needed.
+
 Execute all Playwright tests:
 
-```
+```bash
 npx playwright test
 ```
 
 Run tests in headed mode:
 
-```
+```bash
 npx playwright test --headed
 ```
 
 Open Playwright report:
 
-```
+```bash
 npx playwright show-report
 ```
+
+---
+
+# Configuration
+
+### `playwright.config.ts`
+
+Key configuration details:
+
+* `baseURL` is set to `http://127.0.0.1:3000` (uses IPv4 explicitly to avoid IPv6 resolution issues in CI)
+* `webServer` block automatically starts and stops JSON Server around test runs:
+
+```typescript
+webServer: {
+  command: 'npx json-server db.json --port 3000 --host 0.0.0.0',
+  url: 'http://127.0.0.1:3000/products',
+  reuseExistingServer: true,
+  stdout: 'pipe',
+  stderr: 'pipe',
+},
+```
+
+* `retries: 2` on CI for flake resilience
+* `workers: 1` on CI to avoid port conflicts
 
 ---
 
 # Example Test Flow
 
 1. Generate unique product data
-2. Send POST request to create product
+2. Send POST request to create product via API
 3. Navigate to UI page
 4. Verify product appears on UI
 
@@ -204,10 +211,8 @@ The framework can be extended with the following features:
 
 * Automatic **Jira issue creation on test failure**
 * Screenshot attachment to Jira tickets
-* CI/CD integration using **GitHub Actions**
 * Test reporting using **Allure**
 * API schema validation
-* Environment configuration management
 
 ---
 
@@ -215,8 +220,9 @@ The framework can be extended with the following features:
 
 * **Playwright**
 * **TypeScript**
-* **JSON Server**
+* **JSON Server** `v0.17.4`
 * **Node.js**
+* **GitHub Actions**
 
 ---
 
@@ -226,8 +232,9 @@ This repository demonstrates:
 
 * API testing
 * UI automation
-* scalable automation framework design
-* real-world QA engineering practices
+* CI/CD pipeline integration
+* Scalable automation framework design
+* Real-world QA engineering practices
 
 The project is intended as a **portfolio demonstration for QA Automation**.
 
